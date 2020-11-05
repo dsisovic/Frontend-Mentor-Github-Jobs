@@ -1,0 +1,19 @@
+@import "../partials/variables";
+
+.button {
+    background: $blue;
+    height: 40px;
+    width: 75px;
+    outline: none;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+
+    &:hover {
+        background: white;
+        border: 1px solid $blue;
+        color: $blue;
+        transition: all 0.3s;
+    }
+}

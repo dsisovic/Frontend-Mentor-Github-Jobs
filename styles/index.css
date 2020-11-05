@@ -1,0 +1,223 @@
+.button, .header__filter div:last-child button {
+  background: #5964e0;
+  height: 40px;
+  width: 75px;
+  outline: none;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.button:hover, .header__filter div:last-child button:hover {
+  background: white;
+  border: 1px solid #5964e0;
+  color: #5964e0;
+  -webkit-transition: all 0.3s;
+  transition: all 0.3s;
+}
+
+* {
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html,
+body {
+  font-size: 16px;
+}
+
+body {
+  font-family: "Kumbh Sans", sans-serif;
+  background: #f3f5f7;
+}
+
+.header {
+  display: block;
+  position: relative;
+}
+
+.header__img {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 100%;
+  height: 170px;
+  z-index: -1;
+}
+
+.header__content {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  height: 170px;
+  width: 80%;
+  margin: 0 auto;
+}
+
+.header__content p {
+  color: white;
+  font-weight: bold;
+  font-size: 1.8rem;
+}
+
+.header__switch {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.header__switch span {
+  display: inline-block;
+  margin: 0 15px;
+  height: 20px;
+  width: 40px;
+  background: white;
+  border-radius: 15px;
+  cursor: pointer;
+  position: relative;
+}
+
+.header__switch span::after {
+  content: "";
+  display: block;
+  width: 13px;
+  height: 13px;
+  background: #5964e0;
+  border-radius: 50%;
+  position: absolute;
+  top: 50%;
+  left: 5px;
+  -webkit-transform: translateY(-50%);
+          transform: translateY(-50%);
+}
+
+.header__filter {
+  position: absolute;
+  left: 50%;
+  -webkit-transform: translateX(-50%);
+          transform: translateX(-50%);
+  height: 60px;
+  width: 80%;
+  margin: 0 auto;
+  background: white;
+  -webkit-box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.12), 0 1px 5px 0 rgba(0, 0, 0, 0.2);
+          box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.12), 0 1px 5px 0 rgba(0, 0, 0, 0.2);
+  margin-top: -30px;
+  border-radius: 10px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  border: none;
+  outline: none;
+}
+
+.header__filter div {
+  width: calc(100% / 3);
+  height: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  padding: 0 1em;
+}
+
+.header__filter div:not(:last-child) {
+  border-right: 1px solid gainsboro;
+}
+
+.header__filter div img {
+  -webkit-transform: scale(0.8);
+          transform: scale(0.8);
+}
+
+.header__filter div input {
+  width: 100%;
+  margin: 0 1em;
+  height: 40px;
+  border: none;
+  outline: none;
+}
+
+.header__filter div:last-child {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+
+.header__filter div:last-child .checkbox {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  font-size: 0.8rem;
+  cursor: pointer;
+  position: relative;
+}
+
+.header__filter div:last-child .checkbox__checked {
+  display: none;
+  position: absolute;
+  z-index: 5;
+}
+
+.header__filter div:last-child .checkbox__text {
+  margin-left: 25px;
+}
+
+.header__filter div:last-child .checkbox__element {
+  position: absolute;
+  width: 15px;
+  height: 15px;
+  background: #f3f5f7;
+  border: 1px solid gainsboro;
+}
+
+.main {
+  display: block;
+  margin-top: 5em;
+  padding-top: 8em;
+  width: 80%;
+  margin: 0 auto;
+  min-height: 100vh;
+  display: -ms-grid;
+  display: grid;
+  gap: 60px 25px;
+  -ms-grid-columns: (minmax(350px, 1fr))[auto-fit];
+      grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+}
+
+.main .box {
+  width: 100%;
+  background: white;
+  border-radius: 10px;
+  padding: 2em;
+}
+/*# sourceMappingURL=index.css.map */
