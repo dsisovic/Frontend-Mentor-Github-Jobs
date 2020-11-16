@@ -3,11 +3,12 @@
 .button {
     background: $blue;
     height: 40px;
-    width: 75px;
+    min-width: 80px;
     outline: none;
     color: white;
     border: none;
     border-radius: 5px;
+    padding: 0 15px;
     cursor: pointer;
 
     &:hover {

@@ -20,18 +20,22 @@
             <p>devjobs</p>
             <div class="header__switch">
                 <img src="./assets//desktop/icon-sun.svg" alt="sun">
-                <span></span>
+                <span class="header__switch-container">
+                    <span class="header__switch-ball"></span>
+                </span>
                 <img src="./assets//desktop/icon-moon.svg" alt="moon">
             </div>
         </div>
         <div class="header__filter">
             <div>
                 <img src="./assets/desktop/icon-search.svg" alt="search">
-                <input type="text" name="search" placeholder="Filter by title, companies, expertise" autocomplete="off">
+                <input type="text" name="search" placeholder="Filter by title, companies, expertise" autocomplete="off"
+                    id="titleInput">
             </div>
             <div>
                 <img src="./assets/desktop/icon-location.svg" alt="location">
-                <input type="text" name="location" placeholder="Filter by location" autocomplete="off">
+                <input type="text" name="location" placeholder="Filter by location" autocomplete="off"
+                    id="locationInput">
             </div>
             <div>
                 <span class="checkbox">
@@ -39,17 +43,27 @@
                     <span class="checkbox__element"></span>
                     <span class="checkbox__text">Full Time Only</span>
                 </span>
-                <button>Search</button>
+                <button id="search__button">Search</button>
             </div>
         </div>
     </header>
-    <main class="main">
-        <div class="box">1</div>
-        <div class="box">2</div>
-        <div class="box">3</div>
-        <div class="box">4</div>
-    </main>
-
+    <h5 id="fetch__error"></h5>
+    <div id="loading">
+        <div id="loading__wrapper">
+            <div id="loading__spinner"></div>
+            <span>Loading...</span>
+        </div>
+    </div>
+    <main id="main"></main>
+    <div id="load-more">
+        <button id="load-more__button">Load More</button>
+    </div>
+    <div id="rocket">
+        <div id="rocket__wrapper">
+            <img src="./assets/desktop/rocket-body.png" alt="rocket-body" id="rocket__body">
+            <img src="./assets/desktop/rocket-flame.png" alt="rocket-flame" id="rocket__flame">
+        </div>
+    </div>
     <script src="./js/index.js" type="module"></script>
 </body>
 
