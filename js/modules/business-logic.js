@@ -15,16 +15,27 @@ class BusinessLogic {
 
     setEventListeners() {
         const rocket = ui.getSingleElement('#rocket');
+        const filter = ui.getSingleElement('#filter');
         const fullTimeCheckbox = ui.getSingleElement('.checkbox');
+        const mobileSearch = ui.getSingleElement('#mobile__search');
         const searchButton = ui.getSingleElement('#search__button');
-        const themeSwitcher = ui.getSingleElement('.header__switch-container');
+        const mobileWindowClose = ui.getSingleElement('#window__close');
         const loadMoreButton = ui.getSingleElement('#load-more__button');
+        const themeSwitcher = ui.getSingleElement('.header__switch-container');
+        const fullTimeMobileCheckbox = ui.getSingleElement('.checkbox__mobile');
+        const searchButtonMobile = ui.getSingleElement('#search__button-mobile');
+
 
         rocket.addEventListener('click', () => this.goToTopPage());
+        filter.addEventListener('click', () => this.onFilterClick(true));
         themeSwitcher.addEventListener('click', () => this.switchTheme());
-        searchButton.addEventListener('click', () => this.onSearchButton());
+        mobileSearch.addEventListener('click', () => this.onMobileSearch());
         loadMoreButton.addEventListener('click', () => http.fetchNextJobList());
-        fullTimeCheckbox.addEventListener('click', () => this.handleFullTimeClick());
+        searchButton.addEventListener('click', () => this.onSearchButton(false));
+        mobileWindowClose.addEventListener('click', () => this.onFilterClick(false));
+        searchButtonMobile.addEventListener('click', () => this.onSearchButton(true));
+        fullTimeCheckbox.addEventListener('click', () => this.handleFullTimeClick(false));
+        fullTimeMobileCheckbox.addEventListener('click', () => this.handleFullTimeClick(true));
 
         document.addEventListener('keypress', (event) => this.onKeypress(event));
         window.addEventListener('scroll', this.debounceScroll(() => this.onPageScroll(), 100));
@@ -43,13 +54,13 @@ class BusinessLogic {
                     </div>
                     <div class="box__content">
                         <div class="box__content--day">
-                            <span>${this.calculateDaysPassed(jobItem['created_at'])}</span>
+                            <span>${this.calculateTimePassed(jobItem['created_at'])}</span>
                             <span class="dot">&bull;</span>
                             <span>${jobItem.type}</span>
                         </div>
-                        <div class="box__content--title" title="${jobItem.title}">${jobItem.title.length > 65 ? jobItem.title.slice(0, 65) + '...' : jobItem.title}</div>
+                        <div class="box__content--title" title="${jobItem.title}">${jobItem.title.length > 45 ? jobItem.title.slice(0, 45) + '...' : jobItem.title}</div>
                         <div class="box__content--company">${jobItem.company}</div>
-                        <div class="box__content--location" title="${jobItem.location}">${jobItem.location.length > 35 ? jobItem.location.slice(0, 35) + '...' : jobItem.location}</div>
+                        <div class="box__content--location" title="${jobItem.location}">${jobItem.location.length > 25 ? jobItem.location.slice(0, 25) + '...' : jobItem.location}</div>
                     </div>
                 </div>
             `;
@@ -57,6 +68,28 @@ class BusinessLogic {
             .join('');
 
         this.updateSpinnerState(false);
+    }
+
+    onFilterClick(showState) {
+        const mainElement = ui.getSingleElement('#main');
+        const headerElement = ui.getSingleElement('header');
+        const rocketContainer = ui.getSingleElement('#rocket');
+        const mobileWindow = ui.getSingleElement('#mobile__window');
+        const loadMoreButton = ui.getSingleElement('#load-more__button');
+
+        if (showState) {
+            mobileWindow.style.display = 'block';
+            mainElement.style.filter = 'blur(2px)';
+            headerElement.style.filter = 'blur(2px)';
+            loadMoreButton.style.filter = 'blur(2px)';
+            rocketContainer.style.filter = 'blur(2px)';
+        } else {
+            mainElement.style.filter = 'none';
+            mobileWindow.style.display = 'none';
+            headerElement.style.filter = 'none';
+            loadMoreButton.style.filter = 'none';
+            rocketContainer.style.filter = 'none';
+        }
     }
 
     goToTopPage() {
@@ -86,7 +119,7 @@ class BusinessLogic {
         loadingWrapper.style.height = showSpinner ? `${documentHeight}px` : '0px';
     }
 
-    calculateDaysPassed(jobPostDate) {
+    calculateTimePassed(jobPostDate) {
         const currentMilliseconds = new Date().getTime();
         const jobPostMilliseconds = new Date(jobPostDate).getTime();
 
@@ -160,10 +193,10 @@ class BusinessLogic {
         loadMoreButton.style.display = state;
     }
 
-    handleFullTimeClick() {
-        const blankCheckboxElement = ui.getSingleElement('.checkbox__element');
-        const checkedCheckboxElement = ui.getSingleElement('.checkbox__checked');
-        const checkboxStyle = getComputedStyle(document.body).getPropertyValue('--input-color');
+    handleFullTimeClick(mobileCheckbox) {
+        const elementPrefix = mobileCheckbox ? '-mobile' : '';
+        const blankCheckboxElement = ui.getSingleElement(`.checkbox__element${elementPrefix}`);
+        const checkedCheckboxElement = ui.getSingleElement(`.checkbox__checked${elementPrefix}`);
 
         this.fullTimeChecked = !this.fullTimeChecked;
 
@@ -196,21 +229,28 @@ class BusinessLogic {
         }
     }
 
-    onSearchButton() {
-        const queryParams = this.formatQueryParams();
-        const loadButtonState = this.getLoadButtonState(queryParams);
+    onSearchButton(mobileSearch) {
+        const queryParams = this.formatQueryParams(mobileSearch);
+        const loadButtonState = this.getLoadButtonState(queryParams, 3);
         const loadButtonStateCallback = ui.updateLoadMoreButtonState.bind(ui, loadButtonState);
 
         http.fetchJobsList(queryParams, loadButtonStateCallback);
     }
 
-    getLoadButtonState(queryParams) {
-        return queryParams.split('=&').length === 3 ? 'block' : 'none';
+    getLoadButtonState(queryParams, length) {
+        return queryParams.split('=&').length === length ? 'block' : 'none';
     }
 
-    formatQueryParams() {
+    formatQueryParams(mobileSearch) {
         const titleInputValue = ui.getSingleElement('#titleInput').value || '';
-        const locationInputValue = ui.getSingleElement('#locationInput').value || '';
+        const locationInputValue = !mobileSearch ? ui.getSingleElement('#locationInput').value || '' : '';
+
+        return `description=${titleInputValue}&location=${locationInputValue}&full_time=${this.fullTimeChecked ? 'yes' : 'no'}`;
+    }
+
+    formatMobileWindowQueryParams() {
+        const titleInputValue = ui.getSingleElement('#titleInput').value || '';
+        const locationInputValue = ui.getSingleElement('#mobile__location').value || '';
 
         return `description=${titleInputValue}&location=${locationInputValue}&full_time=${this.fullTimeChecked ? 'yes' : 'no'}`;
     }
@@ -219,6 +259,15 @@ class BusinessLogic {
         if (event.key === 'Enter') {
             this.onSearchButton()
         }
+    }
+
+    onMobileSearch() {
+        const queryParams = this.formatMobileWindowQueryParams();
+        const loadButtonState = this.getLoadButtonState(queryParams, 2);
+
+        const loadButtonStateCallback = ui.updateLoadMoreButtonState.bind(ui, loadButtonState);
+        http.fetchJobsList(queryParams, loadButtonStateCallback);
+        this.onFilterClick(false);
     }
 
     loadSavedTheme() {

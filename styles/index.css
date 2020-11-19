@@ -1,4 +1,4 @@
-.button, .header__filter div:last-child #search__button, #load-more__button {
+.button, button {
   background: #5964e0;
   height: 40px;
   min-width: 80px;
@@ -10,7 +10,7 @@
   cursor: pointer;
 }
 
-.button:hover, .header__filter div:last-child #search__button:hover, #load-more__button:hover {
+.button:hover, button:hover {
   background: white;
   border: 1px solid #5964e0;
   color: #5964e0;
@@ -41,6 +41,41 @@ body {
   background: var(--theme-color);
 }
 
+.checkbox {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  font-size: 0.8rem;
+  cursor: pointer;
+  position: relative;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+}
+
+.checkbox__checked {
+  display: none;
+  position: absolute;
+  z-index: 5;
+}
+
+.checkbox__text {
+  margin-left: 25px;
+  color: var(--theme-font-color);
+}
+
+.checkbox__element {
+  position: absolute;
+  width: 15px;
+  height: 15px;
+  background: var(--theme-color);
+  border: 1px solid gainsboro;
+}
+
 .header {
   display: block;
   position: relative;
@@ -53,6 +88,8 @@ body {
   width: 100%;
   height: 170px;
   z-index: -1;
+  background: url("../assets/desktop/bg-pattern-header.svg") no-repeat;
+  background-size: 100% 170px;
 }
 
 .header__content {
@@ -71,10 +108,11 @@ body {
   margin: 0 auto;
 }
 
-.header__content p {
+.header__content a {
   color: white;
   font-weight: bold;
   font-size: 1.8rem;
+  text-decoration: none;
 }
 
 .header__switch {
@@ -121,7 +159,6 @@ body {
   height: 60px;
   width: 80%;
   max-width: 1200px;
-  margin: 0 auto;
   background: var(--input-color);
   -webkit-box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.12), 0 1px 5px 0 rgba(0, 0, 0, 0.2);
           box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.12), 0 1px 5px 0 rgba(0, 0, 0, 0.2);
@@ -140,7 +177,9 @@ body {
   outline: none;
 }
 
-.header__filter div {
+.header__filter .header__search,
+.header__filter .header__button,
+.header__filter .header__location {
   width: calc(100% / 3);
   height: 100%;
   display: -webkit-box;
@@ -152,16 +191,22 @@ body {
   padding: 0 1em;
 }
 
-.header__filter div:not(:last-child) {
+.header__filter .header__search:not(.header__button),
+.header__filter .header__button:not(.header__button),
+.header__filter .header__location:not(.header__button) {
   border-right: 1px solid gainsboro;
 }
 
-.header__filter div img {
+.header__filter .header__search img,
+.header__filter .header__button img,
+.header__filter .header__location img {
   -webkit-transform: scale(0.8);
           transform: scale(0.8);
 }
 
-.header__filter div input {
+.header__filter .header__search input,
+.header__filter .header__button input,
+.header__filter .header__location input {
   width: 100%;
   margin: 0 1em;
   height: 40px;
@@ -171,7 +216,7 @@ body {
   color: var(--theme-font-color);
 }
 
-.header__filter div:last-child {
+.header__filter .header__button {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -183,39 +228,38 @@ body {
           justify-content: space-between;
 }
 
-.header__filter div:last-child .checkbox {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
+.header__filter .header__search-mobile {
+  display: none;
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  font-size: 0.8rem;
+  -webkit-box-pack: space-evenly;
+      -ms-flex-pack: space-evenly;
+          justify-content: space-evenly;
+  -ms-flex-preferred-size: 20%;
+      flex-basis: 20%;
+}
+
+.header__filter .header__search-mobile img {
   cursor: pointer;
-  position: relative;
-  -webkit-user-select: none;
-     -moz-user-select: none;
-      -ms-user-select: none;
-          user-select: none;
+  width: 16px;
+  height: 16px;
 }
 
-.header__filter div:last-child .checkbox__checked {
-  display: none;
-  position: absolute;
-  z-index: 5;
+.header__filter .header__search-mobile button {
+  min-width: 33px;
+  height: 33px;
+  padding: 0;
+  margin-left: 0.5em;
+  background: url("../assets/mobile/icon-search-white.svg") no-repeat center center;
+  background-size: 16px 16px;
+  background-color: #5964e0;
 }
 
-.header__filter div:last-child .checkbox__text {
-  margin-left: 25px;
-  color: var(--theme-font-color);
-}
-
-.header__filter div:last-child .checkbox__element {
-  position: absolute;
-  width: 15px;
-  height: 15px;
-  background: var(--theme-color);
-  border: 1px solid gainsboro;
+.header__filter .header__search-mobile button:hover {
+  background: url("../assets/desktop/icon-search.svg") no-repeat center center;
+  background-size: 16px 16px;
+  padding: 0;
 }
 
 #main {
@@ -227,8 +271,8 @@ body {
   display: -ms-grid;
   display: grid;
   gap: 60px 25px;
-  -ms-grid-columns: (minmax(350px, 1fr))[auto-fit];
-      grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  -ms-grid-columns: (minmax(270px, 1fr))[auto-fit];
+      grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
 }
 
 #main .box {
@@ -264,6 +308,7 @@ body {
   -webkit-box-pack: center;
       -ms-flex-pack: center;
           justify-content: center;
+  color: var(--theme-font-color);
 }
 
 #main .box__header img {
@@ -317,6 +362,9 @@ body {
 #fetch__error {
   text-align: center;
   display: none;
+  color: var(--theme-font-color);
+  width: 80%;
+  margin: 0 auto;
   margin-top: 5em;
 }
 
@@ -407,6 +455,80 @@ body {
           animation: flames 0.7s infinite;
 }
 
+#mobile__window {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 999;
+  display: none;
+}
+
+.mobile__window-wrapper {
+  position: relative;
+  top: 20%;
+  left: 50%;
+  -webkit-transform: translateX(-50%);
+          transform: translateX(-50%);
+  width: 80%;
+  background: var(--input-color);
+  z-index: 1000;
+  -webkit-box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.12), 0 1px 5px 0 rgba(0, 0, 0, 0.2);
+          box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.12), 0 1px 5px 0 rgba(0, 0, 0, 0.2);
+  border-radius: 5px;
+}
+
+.mobile__window-header {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  border-bottom: 1px solid gainsboro;
+  position: relative;
+}
+
+.mobile__window-header img {
+  position: absolute;
+  left: 15px;
+  top: 50%;
+  -webkit-transform: translateY(-50%) scale(0.7);
+          transform: translateY(-50%) scale(0.7);
+}
+
+.mobile__window-header span {
+  -ms-flex-preferred-size: 13%;
+      flex-basis: 13%;
+  cursor: pointer;
+  font-size: 1.5rem;
+  color: #5964e0;
+  text-align: center;
+}
+
+.mobile__window-header input {
+  height: 70px;
+  padding: 0 2em;
+  padding-left: 3em;
+  border: none;
+  outline: none;
+  -ms-flex-preferred-size: 87%;
+      flex-basis: 87%;
+  background: var(--input-color);
+  color: var(--theme-font-color);
+}
+
+.mobile__window-body {
+  padding: 1em;
+}
+
+.mobile__window-body button {
+  margin-top: 2em;
+  width: 100%;
+}
+
 @-webkit-keyframes spin {
   to {
     -webkit-transform: rotate(360deg);
@@ -454,6 +576,64 @@ body {
   }
   100% {
     opacity: 0;
+  }
+}
+
+@media only screen and (max-width: 1400px) {
+  #main .box {
+    max-width: 100%;
+    padding: 1.2em;
+  }
+  #main .box__content--location {
+    left: 1.2em;
+  }
+}
+
+@media only screen and (max-width: 920px) {
+  .header__filter .header__search,
+  .header__filter .header__location {
+    width: 28%;
+  }
+  .header__filter .header__button {
+    width: 44%;
+  }
+  .header__img {
+    background: url("../assets/mobile/bg-pattern-header.svg") no-repeat;
+    background-size: 100% 170px;
+  }
+}
+
+@media only screen and (max-width: 600px) {
+  .header__filter {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    padding: 0 0.5em;
+  }
+  .header__filter .header__search {
+    border-right: none !important;
+    -ms-flex-preferred-size: 80%;
+        flex-basis: 80%;
+  }
+  .header__filter .header__location,
+  .header__filter .header__button {
+    display: none;
+  }
+  .header__filter .header__search-mobile {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+  }
+  #main {
+    -ms-grid-columns: 1fr;
+        grid-template-columns: 1fr;
+  }
+  #main .box {
+    max-width: 100%;
+    padding: 1.2em;
+  }
+  #main .box__content--location {
+    left: 1.2em;
   }
 }
 /*# sourceMappingURL=index.css.map */

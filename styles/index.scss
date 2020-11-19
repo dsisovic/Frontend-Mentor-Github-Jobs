@@ -23,6 +23,38 @@ body {
     background: var(--theme-color);
 }
 
+button {
+    @extend .button;
+}
+
+.checkbox {
+    display: flex;
+    align-items: center;
+    font-size: 0.8rem;
+    cursor: pointer;
+    position: relative;
+    user-select: none;
+
+    &__checked {
+        display: none;
+        position: absolute;
+        z-index: 5;
+    }
+
+    &__text {
+        margin-left: 25px;
+        color: var(--theme-font-color);
+    }
+
+    &__element {
+        position: absolute;
+        width: 15px;
+        height: 15px;
+        background: var(--theme-color);
+        border: 1px solid gainsboro;
+    }
+}
+
 .header {
     display: block;
     position: relative;
@@ -34,6 +66,8 @@ body {
         width: 100%;
         height: 170px;
         z-index: -1;
+        background: url("../assets/desktop/bg-pattern-header.svg") no-repeat;
+        background-size: 100% 170px;
     }
 
     &__content {
@@ -45,10 +79,11 @@ body {
         max-width: 1200px;
         margin: 0 auto;
 
-        p {
+        a {
             color: white;
             font-weight: bold;
             font-size: 1.8rem;
+            text-decoration: none;
         }
     }
 
@@ -89,7 +124,6 @@ body {
         height: 60px;
         width: 80%;
         max-width: 1200px;
-        margin: 0 auto;
         background: var(--input-color);
         box-shadow: $box-shadow;
         margin-top: -30px;
@@ -100,14 +134,16 @@ body {
         border: none;
         outline: none;
 
-        div {
+        .header__search,
+        .header__button,
+        .header__location {
             width: calc(100% / 3);
             height: 100%;
             display: flex;
             align-items: center;
             padding: 0 1em;
 
-            &:not(:last-child) {
+            &:not(.header__button) {
                 border-right: 1px solid gainsboro;
             }
 
@@ -124,42 +160,39 @@ body {
                 background: var(--input-color);
                 color: var(--theme-font-color);
             }
+        }
 
-            &:last-child {
-                display: flex;
-                align-items: center;
-                justify-content: space-between;
+        .header__button {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
 
-                .checkbox {
-                    display: flex;
-                    align-items: center;
-                    font-size: 0.8rem;
-                    cursor: pointer;
-                    position: relative;
-                    user-select: none;
+        .header__search-mobile {
+            display: none;
+            align-items: center;
+            justify-content: space-evenly;
+            flex-basis: 20%;
 
-                    &__checked {
-                        display: none;
-                        position: absolute;
-                        z-index: 5;
-                    }
+            img {
+                cursor: pointer;
+                width: 16px;
+                height: 16px;
+            }
 
-                    &__text {
-                        margin-left: 25px;
-                        color: var(--theme-font-color);
-                    }
+            button {
+                min-width: 33px;
+                height: 33px;
+                padding: 0;
+                margin-left: 0.5em;
+                background: url("../assets/mobile/icon-search-white.svg") no-repeat center center;
+                background-size: 16px 16px;
+                background-color: $blue;
 
-                    &__element {
-                        position: absolute;
-                        width: 15px;
-                        height: 15px;
-                        background: var(--theme-color);
-                        border: 1px solid gainsboro;
-                    }
-                }
-
-                #search__button {
-                    @extend .button;
+                &:hover {
+                    background: url("../assets/desktop/icon-search.svg") no-repeat center center;
+                    background-size: 16px 16px;
+                    padding: 0;
                 }
             }
         }
@@ -174,7 +207,7 @@ body {
     min-height: 100vh;
     display: grid;
     gap: 60px 25px;
-    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
 
     .box {
         min-height: 225px;
@@ -201,6 +234,7 @@ body {
             display: flex;
             align-items: center;
             justify-content: center;
+            color: var(--theme-font-color);
 
             img {
                 max-width: 100%;
@@ -248,6 +282,9 @@ body {
 #fetch__error {
     text-align: center;
     display: none;
+    color: var(--theme-font-color);
+    width: 80%;
+    margin: 0 auto;
     margin-top: 5em;
 }
 
@@ -289,10 +326,6 @@ body {
     align-items: center;
     justify-content: center;
     margin: 1em 0 3em 0;
-
-    &__button {
-        @extend .button;
-    }
 }
 
 #rocket {
@@ -324,6 +357,71 @@ body {
     }
 }
 
+#mobile__window {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 999;
+    display: none;
+}
+
+.mobile__window-wrapper {
+    position: relative;
+    top: 20%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80%;
+    background: var(--input-color);
+    z-index: 1000;
+    box-shadow: $box-shadow;
+    border-radius: 5px;
+}
+
+.mobile__window-header {
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid gainsboro;
+    position: relative;
+
+    img {
+        position: absolute;
+        left: 15px;
+        top: 50%;
+        transform: translateY(-50%) scale(0.7);
+    }
+
+    span {
+        flex-basis: 13%;
+        cursor: pointer;
+        font-size: 1.5rem;
+        color: $blue;
+        text-align: center;
+    }
+
+    input {
+        height: 70px;
+        padding: 0 2em;
+        padding-left: 3em;
+        border: none;
+        outline: none;
+        flex-basis: 87%;
+        background: var(--input-color);
+        color: var(--theme-font-color);
+    }
+}
+
+.mobile__window-body {
+    padding: 1em;
+
+    button {
+        margin-top: 2em;
+        width: 100%;
+    }
+}
+
 @keyframes spin {
     to {
         transform: rotate(360deg);
@@ -349,5 +447,78 @@ body {
 
     100% {
         opacity: 0;
+    }
+}
+
+@media only screen and (max-width: 1400px) {
+    #main {
+        .box {
+            max-width: 100%;
+            padding: 1.2em;
+
+            &__content {
+                &--location {
+                    left: 1.2em;
+                }
+            }
+        }
+    }
+}
+
+@media only screen and (max-width: 920px) {
+    .header {
+        &__filter {
+            .header__search,
+            .header__location {
+                width: 28%;
+            }
+
+            .header__button {
+                width: 44%;
+            }
+        }
+
+        &__img {
+            background: url("../assets/mobile/bg-pattern-header.svg") no-repeat;
+            background-size: 100% 170px;
+        }
+    }
+}
+
+@media only screen and (max-width: 600px) {
+    .header {
+        &__filter {
+            display: flex;
+            padding: 0 0.5em;
+
+            .header__search {
+                border-right: none !important;
+                flex-basis: 80%;
+            }
+
+            .header__location,
+            .header__button {
+                display: none;
+            }
+
+            .header__search-mobile {
+                display: flex;
+            }
+        }
+    }
+
+    #main {
+        grid-template-columns: 1fr;
+
+        .box {
+            max-width: 100%;
+            padding: 1.2em;
+
+            &__content {
+                &--location {
+                    left: 1.2em;
+                }
+            }
+        }
     }
 }

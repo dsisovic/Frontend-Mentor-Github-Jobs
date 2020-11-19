@@ -6,6 +6,10 @@ class UI {
         return document.querySelector(elementSelector);
     }
 
+    getMultipleElements(elementSelector) {
+        return document.querySelectorAll(elementSelector);
+    }
+
     clearElementChildren(htmlElement) {
         while (htmlElement.firstChild) {
             htmlElement.removeChild(htmlElement.lastChild);
