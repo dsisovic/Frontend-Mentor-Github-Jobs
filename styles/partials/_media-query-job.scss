@@ -38,6 +38,14 @@
                 }
             }
         }
+
+        &__content {
+            ul {
+                li {
+                    margin: 0 10px 10px calc(10px + 1em);
+                }
+            }
+        }
     }
 
     .apply {

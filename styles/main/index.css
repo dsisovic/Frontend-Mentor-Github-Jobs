@@ -96,64 +96,6 @@ body {
   background: var(--theme-color);
 }
 
-@media only screen and (max-width: 1400px) {
-  #main .box {
-    max-width: 100%;
-    padding: 1.2em;
-  }
-  #main .box__content--location {
-    left: 1.2em;
-  }
-}
-
-@media only screen and (max-width: 920px) {
-  .header__container .header__search,
-  .header__container .header__location {
-    width: 28%;
-  }
-  .header__container .header__button {
-    width: 44%;
-  }
-  .header__img {
-    background: url("../../assets/mobile/bg-pattern-header.svg") no-repeat;
-    background-size: 100% 170px;
-  }
-}
-
-@media only screen and (max-width: 600px) {
-  .header__container {
-    display: -webkit-box;
-    display: -ms-flexbox;
-    display: flex;
-    padding: 0 0.5em;
-  }
-  .header__container .header__search {
-    border-right: none !important;
-    -ms-flex-preferred-size: 80%;
-        flex-basis: 80%;
-  }
-  .header__container .header__location,
-  .header__container .header__button {
-    display: none;
-  }
-  .header__container .header__search-mobile {
-    display: -webkit-box;
-    display: -ms-flexbox;
-    display: flex;
-  }
-  #main {
-    -ms-grid-columns: 1fr;
-        grid-template-columns: 1fr;
-  }
-  #main .box {
-    max-width: 100%;
-    padding: 1.2em;
-  }
-  #main .box__content--location {
-    left: 1.2em;
-  }
-}
-
 #mobile__window {
   position: fixed;
   top: 0;
@@ -658,5 +600,63 @@ body {
       -ms-flex-pack: center;
           justify-content: center;
   margin: 1em 0 3em 0;
+}
+
+@media only screen and (max-width: 1400px) {
+  #main .box {
+    max-width: 100%;
+    padding: 1.2em;
+  }
+  #main .box__content--location {
+    left: 1.2em;
+  }
+}
+
+@media only screen and (max-width: 920px) {
+  .header__container .header__search,
+  .header__container .header__location {
+    width: 28%;
+  }
+  .header__container .header__button {
+    width: 44%;
+  }
+  .header__img {
+    background: url("../../assets/mobile/bg-pattern-header.svg") no-repeat;
+    background-size: 100% 170px;
+  }
+}
+
+@media only screen and (max-width: 600px) {
+  .header__container {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    padding: 0 0.5em;
+  }
+  .header__container .header__search {
+    border-right: none !important;
+    -ms-flex-preferred-size: 80%;
+        flex-basis: 80%;
+  }
+  .header__container .header__location,
+  .header__container .header__button {
+    display: none;
+  }
+  .header__container .header__search-mobile {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+  }
+  #main {
+    -ms-grid-columns: 1fr;
+        grid-template-columns: 1fr;
+  }
+  #main .box {
+    max-width: 100%;
+    padding: 1.2em;
+  }
+  #main .box__content--location {
+    left: 1.2em;
+  }
 }
 /*# sourceMappingURL=index.css.map */

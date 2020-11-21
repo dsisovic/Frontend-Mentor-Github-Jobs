@@ -2,7 +2,6 @@
 @import "../components/button";
 @import "../components/checkbox";
 @import "../partials/index";
-@import "../partials/media-query-index";
 @import "../partials/mobile-window";
 @import "../partials/loading";
 @import "../partials/rocket";
@@ -250,3 +249,5 @@
     justify-content: center;
     margin: 1em 0 3em 0;
 }
+
+@import "../partials/media-query-index";

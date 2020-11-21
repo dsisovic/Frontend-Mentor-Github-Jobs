@@ -1,7 +1,6 @@
 @import "../partials/variables";
 @import "../components/button";
 @import "../partials/index";
-@import "../partials/media-query-job";
 
 span {
     color: $grayed-font;
@@ -140,6 +139,7 @@ header {
     background: url("../../assets/mobile/bg-pattern-header.svg") no-repeat;
     background-size: 100% 170px;
     color: white;
+    word-break: break-all;
 
     h4 {
         margin-bottom: 1em;
@@ -168,3 +168,5 @@ header {
         color: var(--theme-font-color);
     }
 }
+
+@import "../partials/media-query-job";
