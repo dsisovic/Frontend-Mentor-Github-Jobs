@@ -1,59 +1,7 @@
-@import "./partials/variables";
-@import "./components/button";
-
-* {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-}
-
-:root {
-    --theme-color: #f3f5f7;
-    --input-color: white;
-    --theme-font-color: black;
-}
-
-html,
-body {
-    font-size: 16px;
-}
-
-body {
-    font-family: "Kumbh Sans", sans-serif;
-    background: var(--theme-color);
-}
-
-button {
-    @extend .button;
-}
-
-.checkbox {
-    display: flex;
-    align-items: center;
-    font-size: 0.8rem;
-    cursor: pointer;
-    position: relative;
-    user-select: none;
-
-    &__checked {
-        display: none;
-        position: absolute;
-        z-index: 5;
-    }
-
-    &__text {
-        margin-left: 25px;
-        color: var(--theme-font-color);
-    }
-
-    &__element {
-        position: absolute;
-        width: 15px;
-        height: 15px;
-        background: var(--theme-color);
-        border: 1px solid gainsboro;
-    }
-}
+@import "../partials/variables";
+@import "../components/button";
+@import "../components/checkbox";
+@import "../partials/index";
 
 .header {
     display: block;
@@ -66,7 +14,7 @@ button {
         width: 100%;
         height: 170px;
         z-index: -1;
-        background: url("../assets/desktop/bg-pattern-header.svg") no-repeat;
+        background: url("../../assets/desktop/bg-pattern-header.svg") no-repeat;
         background-size: 100% 170px;
     }
 
@@ -188,12 +136,12 @@ button {
                 height: 33px;
                 padding: 0;
                 margin-left: 0.5em;
-                background: url("../assets/mobile/icon-search-white.svg") no-repeat center center;
+                background: url("../../assets/mobile/icon-search-white.svg") no-repeat center center;
                 background-size: 16px 16px;
                 background-color: $blue;
 
                 &:hover {
-                    background: url("../assets/desktop/icon-search.svg") no-repeat center center;
+                    background: url("../../assets/desktop/icon-search.svg") no-repeat center center;
                     background-size: 16px 16px;
                     padding: 0;
                 }
@@ -484,7 +432,7 @@ button {
         }
 
         &__img {
-            background: url("../assets/mobile/bg-pattern-header.svg") no-repeat;
+            background: url("../../assets/mobile/bg-pattern-header.svg") no-repeat;
             background-size: 100% 170px;
         }
     }

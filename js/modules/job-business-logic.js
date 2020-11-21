@@ -5,6 +5,7 @@ class JobBusinessLogic {
 
     constructor() { }
 
+
     intializeApp() {
         const jobId = this.getJobId();
         http.fetchJobDetails(jobId);
@@ -121,5 +122,11 @@ class JobBusinessLogic {
 }
 
 const jobBusinessLogic = new JobBusinessLogic();
+
+(() => {
+    document.addEventListener('DOMContentLoaded', () => {
+        jobBusinessLogic.intializeApp();
+    });
+})();
 
 export { jobBusinessLogic };

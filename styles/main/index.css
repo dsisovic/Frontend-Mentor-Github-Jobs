@@ -18,29 +18,6 @@
   transition: all 0.3s;
 }
 
-* {
-  -webkit-box-sizing: border-box;
-          box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-}
-
-:root {
-  --theme-color: #f3f5f7;
-  --input-color: white;
-  --theme-font-color: black;
-}
-
-html,
-body {
-  font-size: 16px;
-}
-
-body {
-  font-family: "Kumbh Sans", sans-serif;
-  background: var(--theme-color);
-}
-
 .checkbox {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -76,6 +53,49 @@ body {
   border: 1px solid gainsboro;
 }
 
+.button, button {
+  background: #5964e0;
+  height: 40px;
+  min-width: 80px;
+  outline: none;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 0 15px;
+  cursor: pointer;
+}
+
+.button:hover, button:hover {
+  background: white;
+  border: 1px solid #5964e0;
+  color: #5964e0;
+  -webkit-transition: all 0.3s;
+  transition: all 0.3s;
+}
+
+* {
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  --theme-color: #f3f5f7;
+  --input-color: white;
+  --theme-font-color: black;
+}
+
+html,
+body {
+  font-size: 16px;
+}
+
+body {
+  font-family: "Kumbh Sans", sans-serif;
+  background: var(--theme-color);
+}
+
 .header {
   display: block;
   position: relative;
@@ -88,7 +108,7 @@ body {
   width: 100%;
   height: 170px;
   z-index: -1;
-  background: url("../assets/desktop/bg-pattern-header.svg") no-repeat;
+  background: url("../../assets/desktop/bg-pattern-header.svg") no-repeat;
   background-size: 100% 170px;
 }
 
@@ -252,13 +272,13 @@ body {
   height: 33px;
   padding: 0;
   margin-left: 0.5em;
-  background: url("../assets/mobile/icon-search-white.svg") no-repeat center center;
+  background: url("../../assets/mobile/icon-search-white.svg") no-repeat center center;
   background-size: 16px 16px;
   background-color: #5964e0;
 }
 
 .header__container .header__search-mobile button:hover {
-  background: url("../assets/desktop/icon-search.svg") no-repeat center center;
+  background: url("../../assets/desktop/icon-search.svg") no-repeat center center;
   background-size: 16px 16px;
   padding: 0;
 }
@@ -601,7 +621,7 @@ body {
     width: 44%;
   }
   .header__img {
-    background: url("../assets/mobile/bg-pattern-header.svg") no-repeat;
+    background: url("../../assets/mobile/bg-pattern-header.svg") no-repeat;
     background-size: 100% 170px;
   }
 }
