@@ -1,0 +1,74 @@
+@import "../partials/variables";
+
+@media only screen and (max-width: 1400px) {
+    #main {
+        .box {
+            max-width: 100%;
+            padding: 1.2em;
+
+            &__content {
+                &--location {
+                    left: 1.2em;
+                }
+            }
+        }
+    }
+}
+
+@media only screen and (max-width: 920px) {
+    .header {
+        &__container {
+            .header__search,
+            .header__location {
+                width: 28%;
+            }
+
+            .header__button {
+                width: 44%;
+            }
+        }
+
+        &__img {
+            background: url("../../assets/mobile/bg-pattern-header.svg") no-repeat;
+            background-size: 100% 170px;
+        }
+    }
+}
+
+@media only screen and (max-width: 600px) {
+    .header {
+        &__container {
+            display: flex;
+            padding: 0 0.5em;
+
+            .header__search {
+                border-right: none !important;
+                flex-basis: 80%;
+            }
+
+            .header__location,
+            .header__button {
+                display: none;
+            }
+
+            .header__search-mobile {
+                display: flex;
+            }
+        }
+    }
+
+    #main {
+        grid-template-columns: 1fr;
+
+        .box {
+            max-width: 100%;
+            padding: 1.2em;
+
+            &__content {
+                &--location {
+                    left: 1.2em;
+                }
+            }
+        }
+    }
+}

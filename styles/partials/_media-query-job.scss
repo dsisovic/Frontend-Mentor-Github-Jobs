@@ -1,0 +1,56 @@
+@media only screen and (max-width: 820px) {
+    html,
+    body {
+        font-size: 14px;
+    }
+
+    header {
+        text-align: center;
+
+        .header__company {
+            flex-direction: column;
+            width: 95%;
+
+            &-apply {
+                flex-direction: column;
+                margin: 1em 0;
+                padding: 0;
+                width: 100%;
+
+                div:first-child {
+                    margin: 2em 0;
+                }
+            }
+        }
+    }
+
+    .main {
+        width: 95%;
+        text-align: center;
+        padding: 1em;
+
+        &__top {
+            flex-direction: column;
+
+            div:nth-child(2) {
+                button {
+                    margin-top: 2em;
+                }
+            }
+        }
+    }
+
+    .apply {
+        width: 95%;
+    }
+
+    .footer {
+        width: 95%;
+        text-align: center;
+        flex-direction: column;
+
+        button {
+            margin-top: 2em;
+        }
+    }
+}
