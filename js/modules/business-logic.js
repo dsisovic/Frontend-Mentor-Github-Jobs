@@ -223,7 +223,7 @@ class BusinessLogic {
     }
 
     navigateToJobDetail(jobId) {
-        window.location.replace(`/components/job.html?id=${jobId}`);
+        window.location.replace(`/Frontend-Mentor-Github-Jobs/components/job.html?id=${jobId}`);
     }
 }
 
