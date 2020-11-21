@@ -122,10 +122,4 @@ class JobBusinessLogic {
 
 const jobBusinessLogic = new JobBusinessLogic();
 
-// (() => {
-//     document.addEventListener('DOMContentLoaded', () => {
-//         jobBusinessLogic.intializeApp();
-//     });
-// })();
-
 export { jobBusinessLogic };
