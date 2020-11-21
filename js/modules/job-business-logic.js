@@ -5,7 +5,6 @@ class JobBusinessLogic {
 
     constructor() { }
 
-
     intializeApp() {
         const jobId = this.getJobId();
         http.fetchJobDetails(jobId);
@@ -41,7 +40,7 @@ class JobBusinessLogic {
         <header class="header">
         <div class="header__img"></div>
         <div class="header__content">
-            <a href="/Frontend-Mentor-Github-Jobs">devjobs</a>
+            <a href="/">devjobs</a>
             <div class="header__switch">
                 <div>
                     <img src="../assets/desktop/icon-sun.svg" alt="sun">
@@ -123,10 +122,10 @@ class JobBusinessLogic {
 
 const jobBusinessLogic = new JobBusinessLogic();
 
-(() => {
-    document.addEventListener('DOMContentLoaded', () => {
-        jobBusinessLogic.intializeApp();
-    });
-})();
+// (() => {
+//     document.addEventListener('DOMContentLoaded', () => {
+//         jobBusinessLogic.intializeApp();
+//     });
+// })();
 
 export { jobBusinessLogic };
