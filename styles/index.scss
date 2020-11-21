@@ -117,7 +117,7 @@ button {
         }
     }
 
-    &__filter {
+    &__container {
         position: absolute;
         left: 50%;
         transform: translateX(-50%);
@@ -142,13 +142,16 @@ button {
             display: flex;
             align-items: center;
             padding: 0 1em;
+            overflow: hidden;
 
             &:not(.header__button) {
                 border-right: 1px solid gainsboro;
             }
 
-            img {
-                transform: scale(0.8);
+            div {
+                img {
+                    transform: scale(0.8);
+                }
             }
 
             input {
@@ -210,10 +213,11 @@ button {
     grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
 
     .box {
+        cursor: pointer;
         min-height: 225px;
         max-height: 225px;
-        max-width: 400px;
         width: 100%;
+        max-width: 400px;
         background: var(--input-color);
         border-radius: 10px;
         padding: 2em;
@@ -374,6 +378,7 @@ button {
     left: 50%;
     transform: translateX(-50%);
     width: 80%;
+    max-width: 450px;
     background: var(--input-color);
     z-index: 1000;
     box-shadow: $box-shadow;
@@ -467,7 +472,7 @@ button {
 
 @media only screen and (max-width: 920px) {
     .header {
-        &__filter {
+        &__container {
             .header__search,
             .header__location {
                 width: 28%;
@@ -487,7 +492,7 @@ button {
 
 @media only screen and (max-width: 600px) {
     .header {
-        &__filter {
+        &__container {
             display: flex;
             padding: 0 0.5em;
 

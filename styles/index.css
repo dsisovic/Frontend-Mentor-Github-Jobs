@@ -151,7 +151,7 @@ body {
   transition: left 0.3s;
 }
 
-.header__filter {
+.header__container {
   position: absolute;
   left: 50%;
   -webkit-transform: translateX(-50%);
@@ -177,9 +177,9 @@ body {
   outline: none;
 }
 
-.header__filter .header__search,
-.header__filter .header__button,
-.header__filter .header__location {
+.header__container .header__search,
+.header__container .header__button,
+.header__container .header__location {
   width: calc(100% / 3);
   height: 100%;
   display: -webkit-box;
@@ -189,24 +189,25 @@ body {
       -ms-flex-align: center;
           align-items: center;
   padding: 0 1em;
+  overflow: hidden;
 }
 
-.header__filter .header__search:not(.header__button),
-.header__filter .header__button:not(.header__button),
-.header__filter .header__location:not(.header__button) {
+.header__container .header__search:not(.header__button),
+.header__container .header__button:not(.header__button),
+.header__container .header__location:not(.header__button) {
   border-right: 1px solid gainsboro;
 }
 
-.header__filter .header__search img,
-.header__filter .header__button img,
-.header__filter .header__location img {
+.header__container .header__search div img,
+.header__container .header__button div img,
+.header__container .header__location div img {
   -webkit-transform: scale(0.8);
           transform: scale(0.8);
 }
 
-.header__filter .header__search input,
-.header__filter .header__button input,
-.header__filter .header__location input {
+.header__container .header__search input,
+.header__container .header__button input,
+.header__container .header__location input {
   width: 100%;
   margin: 0 1em;
   height: 40px;
@@ -216,7 +217,7 @@ body {
   color: var(--theme-font-color);
 }
 
-.header__filter .header__button {
+.header__container .header__button {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -228,7 +229,7 @@ body {
           justify-content: space-between;
 }
 
-.header__filter .header__search-mobile {
+.header__container .header__search-mobile {
   display: none;
   -webkit-box-align: center;
       -ms-flex-align: center;
@@ -240,13 +241,13 @@ body {
       flex-basis: 20%;
 }
 
-.header__filter .header__search-mobile img {
+.header__container .header__search-mobile img {
   cursor: pointer;
   width: 16px;
   height: 16px;
 }
 
-.header__filter .header__search-mobile button {
+.header__container .header__search-mobile button {
   min-width: 33px;
   height: 33px;
   padding: 0;
@@ -256,7 +257,7 @@ body {
   background-color: #5964e0;
 }
 
-.header__filter .header__search-mobile button:hover {
+.header__container .header__search-mobile button:hover {
   background: url("../assets/desktop/icon-search.svg") no-repeat center center;
   background-size: 16px 16px;
   padding: 0;
@@ -276,10 +277,11 @@ body {
 }
 
 #main .box {
+  cursor: pointer;
   min-height: 225px;
   max-height: 225px;
-  max-width: 400px;
   width: 100%;
+  max-width: 400px;
   background: var(--input-color);
   border-radius: 10px;
   padding: 2em;
@@ -473,6 +475,7 @@ body {
   -webkit-transform: translateX(-50%);
           transform: translateX(-50%);
   width: 80%;
+  max-width: 450px;
   background: var(--input-color);
   z-index: 1000;
   -webkit-box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.12), 0 1px 5px 0 rgba(0, 0, 0, 0.2);
@@ -590,11 +593,11 @@ body {
 }
 
 @media only screen and (max-width: 920px) {
-  .header__filter .header__search,
-  .header__filter .header__location {
+  .header__container .header__search,
+  .header__container .header__location {
     width: 28%;
   }
-  .header__filter .header__button {
+  .header__container .header__button {
     width: 44%;
   }
   .header__img {
@@ -604,22 +607,22 @@ body {
 }
 
 @media only screen and (max-width: 600px) {
-  .header__filter {
+  .header__container {
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
     padding: 0 0.5em;
   }
-  .header__filter .header__search {
+  .header__container .header__search {
     border-right: none !important;
     -ms-flex-preferred-size: 80%;
         flex-basis: 80%;
   }
-  .header__filter .header__location,
-  .header__filter .header__button {
+  .header__container .header__location,
+  .header__container .header__button {
     display: none;
   }
-  .header__filter .header__search-mobile {
+  .header__container .header__search-mobile {
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;

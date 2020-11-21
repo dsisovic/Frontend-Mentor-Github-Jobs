@@ -14,6 +14,7 @@ class BusinessLogic {
     }
 
     setEventListeners() {
+        const mainDiv = ui.getSingleElement('#main');
         const rocket = ui.getSingleElement('#rocket');
         const filter = ui.getSingleElement('#filter');
         const fullTimeCheckbox = ui.getSingleElement('.checkbox');
@@ -25,20 +26,20 @@ class BusinessLogic {
         const fullTimeMobileCheckbox = ui.getSingleElement('.checkbox__mobile');
         const searchButtonMobile = ui.getSingleElement('#search__button-mobile');
 
-
         rocket.addEventListener('click', () => this.goToTopPage());
         filter.addEventListener('click', () => this.onFilterClick(true));
         themeSwitcher.addEventListener('click', () => this.switchTheme());
         mobileSearch.addEventListener('click', () => this.onMobileSearch());
         loadMoreButton.addEventListener('click', () => http.fetchNextJobList());
-        searchButton.addEventListener('click', () => this.onSearchButton(false));
+        searchButton.addEventListener('click', () => this.onSearchButton(false))
+        mainDiv.addEventListener('click', (event) => this.onGetJobDetail(event));
         mobileWindowClose.addEventListener('click', () => this.onFilterClick(false));
         searchButtonMobile.addEventListener('click', () => this.onSearchButton(true));
         fullTimeCheckbox.addEventListener('click', () => this.handleFullTimeClick(false));
         fullTimeMobileCheckbox.addEventListener('click', () => this.handleFullTimeClick(true));
 
         document.addEventListener('keypress', (event) => this.onKeypress(event));
-        window.addEventListener('scroll', this.debounceScroll(() => this.onPageScroll(), 100));
+        window.addEventListener('scroll', this.debounceScroll(() => this.onPageScroll(), 20));
     }
 
     renderGithubJobs(githubJobs) {
@@ -46,21 +47,21 @@ class BusinessLogic {
 
         mainDiv.innerHTML = githubJobs
             .map(jobItem => {
-                const imageElement = jobItem['company_logo'] ? `<img src="${jobItem['company_logo']}" alt="box-img" onerror='this.style.display = "none"'>` : '<span>N/A</span>';
+                const { id, type, title, company, location, 'created_at': createdAt, 'company_logo': companyLogo } = jobItem;
+                const imageElement = companyLogo ? `<img src="${companyLogo}" alt="box-img" onerror='this.style.display = "none"'>` : '<span>N/A</span>';
+
                 return `
-                <div class="box">
-                    <div class="box__header">
-                        ${imageElement}
-                    </div>
+                <div class="box" id="${id}">
+                    <div class="box__header">${imageElement}</div>
                     <div class="box__content">
                         <div class="box__content--day">
-                            <span>${this.calculateTimePassed(jobItem['created_at'])}</span>
+                            <span>${this.calculateTimePassed(createdAt)}</span>
                             <span class="dot">&bull;</span>
-                            <span>${jobItem.type}</span>
+                            <span>${type}</span>
                         </div>
-                        <div class="box__content--title" title="${jobItem.title}">${jobItem.title.length > 45 ? jobItem.title.slice(0, 45) + '...' : jobItem.title}</div>
-                        <div class="box__content--company">${jobItem.company}</div>
-                        <div class="box__content--location" title="${jobItem.location}">${jobItem.location.length > 25 ? jobItem.location.slice(0, 25) + '...' : jobItem.location}</div>
+                        <div class="box__content--title" title="${title}">${title.length > 30 ? title.slice(0, 30) + '...' : title}</div>
+                        <div class="box__content--company">${company}</div>
+                        <div class="box__content--location" title="${location}">${location.length > 25 ? location.slice(0, 25) + '...' : location}</div>
                     </div>
                 </div>
             `;
@@ -219,12 +220,14 @@ class BusinessLogic {
             document.documentElement.style.setProperty('--theme-color', '#f3f5f7');
             document.documentElement.style.setProperty('--input-color', 'white');
             document.documentElement.style.setProperty('--theme-font-color', 'black');
+            document.documentElement.style.setProperty('--job-detail-paragraph', 'black');
             this.setSavedTheme('light');
         } else {
             switchBall.style.left = '22px';
             document.documentElement.style.setProperty('--theme-color', '#121721');
             document.documentElement.style.setProperty('--input-color', '#19212E');
             document.documentElement.style.setProperty('--theme-font-color', 'white');
+            document.documentElement.style.setProperty('--job-detail-paragraph', '#6d7f97');
             this.setSavedTheme('dark');
         }
     }
@@ -268,6 +271,29 @@ class BusinessLogic {
         const loadButtonStateCallback = ui.updateLoadMoreButtonState.bind(ui, loadButtonState);
         http.fetchJobsList(queryParams, loadButtonStateCallback);
         this.onFilterClick(false);
+    }
+
+    onGetJobDetail(event) {
+        const isMainElement = event.target.id === 'main';
+        const isBoxElement = event.target.className === 'box';
+
+        if (isBoxElement) {
+            this.navigateToJobDetail(event.target.id);
+        }
+
+        if (!isMainElement && !isBoxElement) {
+            let parentElement = event.target.parentElement;
+
+            while (parentElement.className !== 'box') {
+                parentElement = parentElement.parentElement;
+            }
+
+            this.navigateToJobDetail(parentElement.id);
+        }
+    }
+
+    navigateToJobDetail(jobId) {
+        window.location.replace(`/components/job.html?id=${jobId}`);
     }
 
     loadSavedTheme() {

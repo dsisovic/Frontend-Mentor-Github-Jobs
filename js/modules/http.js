@@ -1,11 +1,12 @@
 import { businessLogic } from './business-logic.js';
+import { jobBusinessLogic } from './job-business-logic.js';
 import { ui } from './ui.js';
-
 class Http {
 
     githubJobs = [];
     currentFetchPage = 1;
     githubJobsUrl = 'https://jobs.github.com/positions.json';
+    githubJobDetailUrl = 'https://jobs.github.com/positions/';
 
     constructor() { }
 
@@ -49,6 +50,17 @@ class Http {
         } catch {
             businessLogic.setFetchErrorState(true, 'Error fetching Github Jobs. Please try again.');
             businessLogic.updateSpinnerState(false);
+        }
+    }
+
+    async fetchJobDetails(jobId) {
+        try {
+            const jobDetailData = await fetch(`${this.githubJobDetailUrl}${jobId}.json`);
+            const jobDetailJson = await jobDetailData.json();
+
+            jobBusinessLogic.initializeJobDetailPage(jobDetailJson);
+        } catch {
+            window.location.href = '/index.html';
         }
     }
 
