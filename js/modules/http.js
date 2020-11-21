@@ -5,8 +5,8 @@ class Http {
 
     githubJobs = [];
     currentFetchPage = 1;
-    githubJobsUrl = 'https://jobs.github.com/positions.json';
-    githubJobDetailUrl = 'https://jobs.github.com/positions/';
+    githubJobsUrl = 'https://cors-anywhere.herokuapp.com/https://jobs.github.com/positions.json';
+    githubJobDetailUrl = 'https://cors-anywhere.herokuapp.com/https://jobs.github.com/positions/';
 
     constructor() { }
 
