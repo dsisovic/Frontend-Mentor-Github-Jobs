@@ -1,6 +1,7 @@
 import { http } from './http.js';
 import { ui } from './ui.js';
 import { businessLogic } from './business-logic.js';
+import { theme } from './theme.js';
 class JobBusinessLogic {
 
     constructor() { }
@@ -12,7 +13,7 @@ class JobBusinessLogic {
 
     setThemeSwitcher() {
         const themeSwitcher = ui.getSingleElement('.header__switch-container');
-        themeSwitcher.addEventListener('click', () => businessLogic.switchTheme());
+        themeSwitcher.addEventListener('click', () => theme.switchTheme());
     }
 
     getJobId() {

@@ -1,5 +1,4 @@
 import { ui } from './ui.js';
-
 class Theme {
 
     constructor() { }
