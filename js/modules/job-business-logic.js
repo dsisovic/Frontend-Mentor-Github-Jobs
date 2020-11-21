@@ -1,7 +1,6 @@
 import { http } from './http.js';
 import { ui } from './ui.js';
 import { businessLogic } from './business-logic.js';
-
 class JobBusinessLogic {
 
     constructor() { }
@@ -41,7 +40,7 @@ class JobBusinessLogic {
         <header class="header">
         <div class="header__img"></div>
         <div class="header__content">
-            <a href="/index.html">devjobs</a>
+            <a href="/Frontend-Mentor-Github-Jobs">devjobs</a>
             <div class="header__switch">
                 <div>
                     <img src="../assets/desktop/icon-sun.svg" alt="sun">
