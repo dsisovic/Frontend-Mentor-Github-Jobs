@@ -1,5 +1,7 @@
 import { http } from './http.js';
 import { ui } from './ui.js';
+import { theme } from './theme.js';
+import { httpHandler } from './http-handler.js';
 class BusinessLogic {
 
     lightTheme = true;
@@ -10,7 +12,7 @@ class BusinessLogic {
     intializeApp() {
         http.fetchJobsList();
         this.setEventListeners();
-        this.loadSavedTheme();
+        theme.loadSavedTheme();
     }
 
     setEventListeners() {
@@ -28,7 +30,7 @@ class BusinessLogic {
 
         rocket.addEventListener('click', () => this.goToTopPage());
         filter.addEventListener('click', () => this.onFilterClick(true));
-        themeSwitcher.addEventListener('click', () => this.switchTheme());
+        themeSwitcher.addEventListener('click', () => theme.switchTheme());
         mobileSearch.addEventListener('click', () => this.onMobileSearch());
         loadMoreButton.addEventListener('click', () => http.fetchNextJobList());
         searchButton.addEventListener('click', () => this.onSearchButton(false))
@@ -148,52 +150,6 @@ class BusinessLogic {
         return condition ? truePrefix : falsePrefix;
     }
 
-    debounceScroll(debounceCallback, waitTime) {
-        let timeout;
-
-        return (...args) => {
-            const context = this;
-            clearTimeout(timeout);
-            timeout = setTimeout(() => debounceCallback.apply(context, args), waitTime);
-        };
-    }
-
-    setFetchErrorState(showState, message) {
-        const fetchErrorContainer = ui.getSingleElement('#fetch__error');
-
-        if (showState) {
-            fetchErrorContainer.textContent = message;
-            fetchErrorContainer.style.display = 'block';
-            this.setLoadButtonRocketState('none');
-        } else {
-            fetchErrorContainer.style.display = 'none';
-            this.setLoadButtonRocketState('block');
-        }
-    }
-
-    checkForEmptyGithubJobs(emptyGithubJobs) {
-        if (emptyGithubJobs) {
-            this.setFetchErrorState(true, 'No Github Jobs available.');
-            this.setLoadButtonRocketState('none');
-        } else {
-            this.setFetchErrorState(false);
-            this.setLoadButtonRocketState('block');
-        }
-    }
-
-    setLoadButtonRocketState(state) {
-        const rocket = ui.getSingleElement('#rocket');
-        const loadMoreButton = ui.getSingleElement('#load-more__button');
-
-        if (window.pageYOffset >= 1200 && state === 'block') {
-            rocket.style.display = 'block';
-        } else {
-            rocket.style.display = 'none';
-        }
-
-        loadMoreButton.style.display = state;
-    }
-
     handleFullTimeClick(mobileCheckbox) {
         const elementPrefix = mobileCheckbox ? '-mobile' : '';
         const blankCheckboxElement = ui.getSingleElement(`.checkbox__element${elementPrefix}`);
@@ -210,30 +166,8 @@ class BusinessLogic {
         }
     }
 
-    switchTheme() {
-        const switchBall = ui.getSingleElement('.header__switch-ball');
-
-        this.lightTheme = !this.lightTheme;
-
-        if (this.lightTheme) {
-            switchBall.style.left = '5px';
-            document.documentElement.style.setProperty('--theme-color', '#f3f5f7');
-            document.documentElement.style.setProperty('--input-color', 'white');
-            document.documentElement.style.setProperty('--theme-font-color', 'black');
-            document.documentElement.style.setProperty('--job-detail-paragraph', 'black');
-            this.setSavedTheme('light');
-        } else {
-            switchBall.style.left = '22px';
-            document.documentElement.style.setProperty('--theme-color', '#121721');
-            document.documentElement.style.setProperty('--input-color', '#19212E');
-            document.documentElement.style.setProperty('--theme-font-color', 'white');
-            document.documentElement.style.setProperty('--job-detail-paragraph', '#6d7f97');
-            this.setSavedTheme('dark');
-        }
-    }
-
     onSearchButton(mobileSearch) {
-        const queryParams = this.formatQueryParams(mobileSearch);
+        const queryParams = httpHandler.formatQueryParams(mobileSearch);
         const loadButtonState = this.getLoadButtonState(queryParams, 3);
         const loadButtonStateCallback = ui.updateLoadMoreButtonState.bind(ui, loadButtonState);
 
@@ -244,20 +178,6 @@ class BusinessLogic {
         return queryParams.split('=&').length === length ? 'block' : 'none';
     }
 
-    formatQueryParams(mobileSearch) {
-        const titleInputValue = ui.getSingleElement('#titleInput').value || '';
-        const locationInputValue = !mobileSearch ? ui.getSingleElement('#locationInput').value || '' : '';
-
-        return `description=${titleInputValue}&location=${locationInputValue}&full_time=${this.fullTimeChecked ? 'yes' : 'no'}`;
-    }
-
-    formatMobileWindowQueryParams() {
-        const titleInputValue = ui.getSingleElement('#titleInput').value || '';
-        const locationInputValue = ui.getSingleElement('#mobile__location').value || '';
-
-        return `description=${titleInputValue}&location=${locationInputValue}&full_time=${this.fullTimeChecked ? 'yes' : 'no'}`;
-    }
-
     onKeypress(event) {
         if (event.key === 'Enter') {
             this.onSearchButton()
@@ -265,7 +185,7 @@ class BusinessLogic {
     }
 
     onMobileSearch() {
-        const queryParams = this.formatMobileWindowQueryParams();
+        const queryParams = httpHandler.formatMobileWindowQueryParams();
         const loadButtonState = this.getLoadButtonState(queryParams, 2);
 
         const loadButtonStateCallback = ui.updateLoadMoreButtonState.bind(ui, loadButtonState);
@@ -292,21 +212,18 @@ class BusinessLogic {
         }
     }
 
+    debounceScroll(debounceCallback, waitTime) {
+        let timeout;
+
+        return (...args) => {
+            const context = this;
+            clearTimeout(timeout);
+            timeout = setTimeout(() => debounceCallback.apply(context, args), waitTime);
+        };
+    }
+
     navigateToJobDetail(jobId) {
         window.location.replace(`/Frontend-Mentor-Github-Jobs/components/job.html?id=${jobId}`);
-    }
-
-    loadSavedTheme() {
-        const savedTheme = localStorage.getItem('savedTheme');
-
-        if (savedTheme) {
-            this.lightTheme = savedTheme !== 'light';
-            this.switchTheme();
-        }
-    }
-
-    setSavedTheme(theme) {
-        localStorage.setItem('savedTheme', theme);
     }
 }
 

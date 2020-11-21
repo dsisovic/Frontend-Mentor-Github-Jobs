@@ -1,5 +1,6 @@
 import { businessLogic } from './business-logic.js';
 import { jobBusinessLogic } from './job-business-logic.js';
+import { httpHandler } from './http-handler.js';
 import { ui } from './ui.js';
 class Http {
 
@@ -12,7 +13,7 @@ class Http {
 
     async fetchJobsList(queryParams, loadButtonCallback) {
         businessLogic.updateSpinnerState(true);
-        businessLogic.setFetchErrorState(false);
+        httpHandler.setFetchErrorState(false);
 
         try {
             const fetchUrl = this.getFetchUrl(queryParams);
@@ -21,13 +22,13 @@ class Http {
 
             this.githubJobs = jobsListJson;
             businessLogic.renderGithubJobs(this.githubJobs);
-            businessLogic.checkForEmptyGithubJobs(this.githubJobs.length === 0);
+            httpHandler.checkForEmptyGithubJobs(this.githubJobs.length === 0);
 
             if (loadButtonCallback) {
                 loadButtonCallback();
             }
         } catch {
-            businessLogic.setFetchErrorState(true, 'Error fetching Github Jobs. Please try again.');
+            httpHandler.setFetchErrorState(true, 'Error fetching Github Jobs. Please try again.');
             businessLogic.updateSpinnerState(false);
         }
     }
@@ -36,7 +37,7 @@ class Http {
         const mainDiv = ui.getSingleElement('#main');
         ui.clearElementChildren(mainDiv);
         businessLogic.updateSpinnerState(true);
-        businessLogic.setFetchErrorState(false);
+        httpHandler.setFetchErrorState(false);
 
         try {
             this.currentFetchPage += 1;
@@ -46,9 +47,9 @@ class Http {
 
             this.githubJobs = [...this.githubJobs, ...jobsListJson];
             businessLogic.renderGithubJobs(this.githubJobs);
-            businessLogic.checkForEmptyGithubJobs(this.githubJobs.length === 0);
+            httpHandler.checkForEmptyGithubJobs(this.githubJobs.length === 0);
         } catch {
-            businessLogic.setFetchErrorState(true, 'Error fetching Github Jobs. Please try again.');
+            httpHandler.setFetchErrorState(true, 'Error fetching Github Jobs. Please try again.');
             businessLogic.updateSpinnerState(false);
         }
     }
