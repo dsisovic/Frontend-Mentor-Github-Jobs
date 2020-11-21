@@ -61,7 +61,7 @@ class Http {
 
             jobBusinessLogic.initializeJobDetailPage(jobDetailJson);
         } catch {
-            window.location.href = '/index.html';
+            window.location.href = '/Frontend-Mentor-Github-Jobs';
         }
     }
 

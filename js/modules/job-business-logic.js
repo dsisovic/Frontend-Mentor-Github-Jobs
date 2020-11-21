@@ -40,7 +40,7 @@ class JobBusinessLogic {
         <header class="header">
         <div class="header__img"></div>
         <div class="header__content">
-            <a href="/">devjobs</a>
+            <a href="/Frontend-Mentor-Github-Jobs">devjobs</a>
             <div class="header__switch">
                 <div>
                     <img src="../assets/desktop/icon-sun.svg" alt="sun">
